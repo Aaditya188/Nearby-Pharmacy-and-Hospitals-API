@@ -1,0 +1,191 @@
+
+<html>  
+    <head>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Nearby Hospitals</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://healthaplenty.herokuapp.com/static/assets/img/favicon.ico">
+    <link rel="stylesheet" type="text/css"href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    </head>
+      
+    <body style='margin: 0'>
+    <div style="width: 100%; height: 100%" id="mapContainer"></div>
+    <script>	
+      // Initialize the platform object:
+      var platform = new H.service.Platform({
+        'apikey': '{{apikey}}'
+      });
+      
+       const lat = {{latitude}};
+       const lng = {{longitude}};
+       
+       const hospitalOne_lat = {{oneLatitude}}; 
+       const hospitalOne_lng = {{oneLongitude}};
+
+       const hospitalTwo_lat = {{twoLatitude}}; 
+       const hospitalTwo_lng = {{twoLongitude}};
+
+       const hospitalThree_lat = {{threeLatitude}}; 
+       const hospitalThree_lng = {{threeLongitude}};
+
+       const hospitalFour_lat = {{fourLatitude}}; 
+       const hospitalFour_lng = {{fourLongitude}};
+
+       const hospitalFive_lat = {{fiveLatitude}}; 
+       const hospitalFive_lng = {{fiveLongitude}};	  
+       
+       const hospitalSix_lat = {{sixLatitude}}; 
+       const hospitalSix_lng = {{sixLongitude}};	 
+
+       const hospitalSeven_lat = {{sevenLatitude}}; 
+       const hospitalSeven_lng = {{sevenLongitude}};	 
+
+       const hospitalEight_lat = {{eightLatitude}}; 
+       const hospitalEight_lng = {{eightLongitude}};	 
+    
+    // Obtain the default map types from the platform object
+      var maptypes = platform.createDefaultLayers();
+
+      // Initialize a map:
+      var map = new H.Map(
+        document.getElementById('mapContainer'),
+        maptypes.raster.terrain.map,
+        {
+          zoom: 15,
+          center: { lat: lat, lng: lng }  
+        });
+        
+    // Enable the event system on the map instance:
+      var mapEvents = new H.mapevents.MapEvents(map);
+    
+    // Instantiate the default behavior, providing the mapEvents object:
+     var behavior = new H.mapevents.Behavior(mapEvents);
+
+        var myLocation_marker = new H.map.Marker({ lat: lat, lng: lng });
+        var hospitalOne_marker = new H.map.Marker({ lat: hospitalOne_lat, lng: hospitalOne_lng });
+        var hospitalTwo_marker = new H.map.Marker({ lat: hospitalTwo_lat, lng: hospitalTwo_lng });
+        var hospitalThree_marker = new H.map.Marker({ lat: hospitalThree_lat, lng: hospitalThree_lng });
+        var hospitalFour_marker = new H.map.Marker({ lat: hospitalFour_lat, lng: hospitalFour_lng });
+        var hospitalFive_marker = new H.map.Marker({ lat: hospitalFive_lat, lng: hospitalFive_lng });
+        var hospitalSix_marker = new H.map.Marker({ lat: hospitalSix_lat, lng: hospitalSix_lng });
+        var hospitalSeven_marker = new H.map.Marker({ lat: hospitalSeven_lat, lng: hospitalSeven_lng });
+        var hospitalEight_marker = new H.map.Marker({ lat: hospitalEight_lat, lng: hospitalEight_lng });
+            
+        // Add the marker to the map:
+        map.addObject(myLocation_marker);
+        map.addObject(hospitalOne_marker);
+        map.addObject(hospitalTwo_marker);
+        map.addObject(hospitalThree_marker);
+        map.addObject(hospitalFour_marker);
+        map.addObject(hospitalFive_marker);
+        map.addObject(hospitalSix_marker);
+        map.addObject(hospitalSeven_marker);
+        map.addObject(hospitalEight_marker);
+        
+        // Create the default UI:
+        var ui = H.ui.UI.createDefault(map, maptypes);
+        
+        // Add event listener to the marker:
+        myLocation_marker.addEventListener('tap', function(evt) {
+        
+            // Create an info bubble object at a specific geographic location:
+            var bubble = new H.ui.InfoBubble({ lng: lng, lat: lat }, {
+                    content: ''
+                });
+            bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>"Howdy!"</h3><p>"This is Your Current Position!"</p></div>');
+            // Add info bubble to the UI:
+            ui.addBubble(bubble);
+        });	
+        
+    hospitalOne_marker.addEventListener('tap', function(evt) {
+        
+            // Create an info bubble object at a specific geographic location:
+            var bubble = new H.ui.InfoBubble({ lng: hospitalOne_lng, lat: hospitalOne_lat }, {
+                    content: ''
+                });
+            bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>{{oneName}}</h3><p>{{oneAddress}}</p></div>');
+            // Add info bubble to the UI:
+            ui.addBubble(bubble);
+        });
+        
+    hospitalTwo_marker.addEventListener('tap', function(evt) {
+        
+            // Create an info bubble object at a specific geographic location:
+            var bubble = new H.ui.InfoBubble({ lng: hospitalTwo_lng, lat: hospitalTwo_lat }, {
+                    content: ''
+                });
+            bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>{{twoName}}</h3><p>{{twoAddress}}</p></div>');
+            // Add info bubble to the UI:
+            ui.addBubble(bubble);
+        });
+        
+    hospitalThree_marker.addEventListener('tap', function(evt) {
+        
+            // Create an info bubble object at a specific geographic location:
+            var bubble = new H.ui.InfoBubble({ lng: hospitalThree_lng, lat: hospitalThree_lat }, {
+                    content: ''
+                });
+            bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>{{threeName}}</h3><p>{{threeAddress}}</p></div>');
+            // Add info bubble to the UI:
+            ui.addBubble(bubble);
+        });
+        
+    hospitalFour_marker.addEventListener('tap', function(evt) {
+        
+            // Create an info bubble object at a specific geographic location:
+            var bubble = new H.ui.InfoBubble({ lng: hospitalFour_lng, lat: hospitalFour_lat }, {
+                    content: ''
+                });
+            bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>{{fourName}}</h3><p>{{fourAddress}}</p></div>');
+            // Add info bubble to the UI:
+            ui.addBubble(bubble);
+        });
+        
+    hospitalFive_marker.addEventListener('tap', function(evt) {
+        
+            // Create an info bubble object at a specific geographic location:
+            var bubble = new H.ui.InfoBubble({ lng: hospitalFive_lng, lat: hospitalFive_lat }, {
+                    content: ''
+                });
+            bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>{{fiveName}}</h3><p>{{fiveAddress}}</p></div>');
+            // Add info bubble to the UI:
+            ui.addBubble(bubble);
+        });
+    hospitalSix_marker.addEventListener('tap', function(evt) {
+        
+        // Create an info bubble object at a specific geographic location:
+        var bubble = new H.ui.InfoBubble({ lng: hospitalSix_lng, lat: hospitalSix_lat }, {
+                content: ''
+            });
+        bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>{{sixName}}</h3><p>{{sixAddress}}</p></div>');
+        // Add info bubble to the UI:
+        ui.addBubble(bubble);
+    });
+    hospitalSeven_marker.addEventListener('tap', function(evt) {
+        
+        // Create an info bubble object at a specific geographic location:
+        var bubble = new H.ui.InfoBubble({ lng: hospitalSeven_lng, lat: hospitalSeven_lat }, {
+                content: ''
+            });
+        bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>{{sevenName}}</h3><p>{{sevenAddress}}</p></div>');
+        // Add info bubble to the UI:
+        ui.addBubble(bubble);
+    });    
+    hospitalEight_marker.addEventListener('tap', function(evt) {
+        
+        // Create an info bubble object at a specific geographic location:
+        var bubble = new H.ui.InfoBubble({ lng: hospitalEight_lng, lat: hospitalEight_lat }, {
+                content: ''
+            });
+        bubble.setContent('<div style="height: 130px; overflow: auto; width: 270px;"><h3>{{eightName}}</h3><p>{{eightAddress}}</p></div>');
+        // Add info bubble to the UI:
+        ui.addBubble(bubble);
+    });
+    </script>
+    </body>
+    </html>
+    

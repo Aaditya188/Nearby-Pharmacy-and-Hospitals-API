@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Nearby Pharmacies</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://healthaplenty.herokuapp.com/static/assets/img/favicon.ico">
+    <body onload="showPosition()">
+        <a>Nearby Pharmacy Shops!</a>
+    </body>
+    <script>
+        function showPosition(){
+          if(navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                  var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
+                  var locAPI= "http://maps.googleapis.com/maps/api/geocode/json?latlng"+position.coords.latitude+","+position.coords.longitude+"&sensor=true";
+                  console.log(position.coords.latitude,position.coords.longitude);
+                  latitude = position.coords.latitude
+                  longitude = position.coords.longitude
+                  location.href = "https://nearbyhospital.herokuapp.com/pharmacy/"+latitude+"/"+longitude;
+              });
+          }
+        }
+      </script>
+</html>
