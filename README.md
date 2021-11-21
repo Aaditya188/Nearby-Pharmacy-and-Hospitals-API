@@ -1,4 +1,4 @@
-# Nearby-Pharmacy-and-Hospitals API
+# Nearby-Pharmacy-and-Hospitals-API
 Flask Code to Show Nearby Pharmacies and Hospitals using your Current Location
 
 
